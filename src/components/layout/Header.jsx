@@ -14,7 +14,7 @@ export default function Header({query,onQueryChange,minPrice,onMinPriceChange,ma
             <input
               type="text"
               value={query}
-              onChange={(e) => onQueryChange(e.tarjet.value)}
+              onChange={(e) => onQueryChange(e.target.value)}
               placeholder="Buscar"
               className="w-full bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
             />
@@ -44,7 +44,7 @@ export default function Header({query,onQueryChange,minPrice,onMinPriceChange,ma
         <p className=" text-xl font-semibold tracking-tight text-zinc-800 ">Filters(+)</p>
         <div className="flex items-center gap-4">
           <span className="text-xl font-light text-zinc-600 ">precio</span>
-          <button className="rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500">
+          <div className="rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500">
             <input
               type="number"
               value={minPrice}
@@ -52,8 +52,8 @@ export default function Header({query,onQueryChange,minPrice,onMinPriceChange,ma
               placeholder="Min"
               className="w-full bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
             />
-          </button>
-          <button className="rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500">
+          </div>
+          <div className="rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500">
             <input
               type="number"
               value={maxPrice}
@@ -61,7 +61,7 @@ export default function Header({query,onQueryChange,minPrice,onMinPriceChange,ma
               placeholder="Max"
               className="w-full bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
             />
-          </button>
+          </div>
         </div>
       </div>
     </div>

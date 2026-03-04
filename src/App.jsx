@@ -30,7 +30,19 @@ const ProductsData=[
 function handleAddToCart(product){
   setCartItems((prev) => [...prev, product.id]);
 }
-  //const [count, setCount] = useState(0)
+
+
+//const min = minPrice === '' ? -Infinity : Number(minPrice)
+//const max = maxPrice === '' ? Infinity : Number(maxPrice)
+
+
+function filterProducts(product){
+  const matchesQuery = product.name.toLowerCase().includes(query.toLowerCase());
+  const matchesMinPrice = minPrice === '' || product.price >= Number(minPrice);
+  const matchesMaxPrice = maxPrice === '' || product.price <= Number(maxPrice);
+  return matchesQuery && matchesMinPrice && matchesMaxPrice;
+}
+const filteredProducts = ProductsData.filter(filterProducts);
 
   return (
     <div className='min-h-screen flex flex-col bg-[#f4f4f4]'>
@@ -46,7 +58,7 @@ function handleAddToCart(product){
       <main className='flex-1 max-w-6xl mx-auto w-full px-4 py-10'>
         {/* <HeroSection/> */}
         <ProductGridSection 
-          products={ProductsData}
+          products={filteredProducts}
           onAddToCart={handleAddToCart} 
         />
       </main>
