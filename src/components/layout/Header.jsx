@@ -1,7 +1,9 @@
 import logoIcon from '../../assets/icons/logo.png'
 import carritoIcon from '../../assets/icons/carrito.png'
 
-export default function Header() {
+        
+
+export default function Header({query,onQueryChange,minPrice,onMinPriceChange,maxPrice,onMaxPriceChange,cartCount}) {
   return (
     <div className="pt-6">
       <div className="grid grid-cols-3 items-center rounded-3xl border border-zinc-200 bg-white/80 px-5 py-4 shadow-sm backdrop-blur">
@@ -11,6 +13,8 @@ export default function Header() {
             <span className="text-zinc-500">⌕</span>
             <input
               type="text"
+              value={query}
+              onChange={(e) => onQueryChange(e.tarjet.value)}
               placeholder="Buscar"
               className="w-full bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
             />
@@ -23,7 +27,7 @@ export default function Header() {
 
         <div className="justify-self-end flex items-center -space-x-3">
           <div className="flex h-10 w-20 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-lg font-semibold text-zinc-100 shadow">
-            3
+            {cartCount}
           </div>
 
           <button
@@ -41,10 +45,22 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <span className="text-xl font-light text-zinc-600 ">precio</span>
           <button className="rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500">
-            MIN
+            <input
+              type="number"
+              value={minPrice}
+              onChange={(e) => onMinPriceChange(e.target.value)}
+              placeholder="Min"
+              className="w-full bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
+            />
           </button>
           <button className="rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500">
-            MAX
+            <input
+              type="number"
+              value={maxPrice}
+              onChange={(e) => onMaxPriceChange(e.target.value)}
+              placeholder="Max"
+              className="w-full bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
+            />
           </button>
         </div>
       </div>
