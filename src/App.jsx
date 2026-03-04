@@ -11,7 +11,7 @@ function App() {
   //const [count, setCount] = useState(0)
 
   return (
-    <div className='min-h-screen bg-[#f4f4f4] px-6 md:px-12 max-w-6xl mx-auto '>
+    <div className='min-h-screen bg-[#f4f4f4]'>
       <Header/>
       <main className='flex-1 max-w-6xl mx-auto w-full px-4 py-10'>
         {/* <HeroSection/> */}

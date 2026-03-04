@@ -1,15 +1,44 @@
+import logoNoTextIcon from '../../assets/icons/logo-no-text.png'
 export default function Footer() {
   return (
- <footer className="border-t">
-      <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-        <p className="text-sm text-gray-600">copyright</p>
-
-        <div className="flex items-center gap-4 text-sm text-gray-600">
-          <a className="hover:text-gray-900" href="/privacidad">links ficticios</a>
-          <a className="hover:text-gray-900" href="https://x.com" target="_blank" rel="noreferrer">redes sociales</a>
-        </div>
+<footer className="w-full bg-zinc-200 text-zinc-600">
+  <div className="min-h-[78vh] max-w-6xl mx-auto px-10 pt-24 pb-16 grid grid-cols-[38%_62%]">
+    {/* Columna izquierda */}
+    <div className="flex flex-col justify-center gap-16">
+      <div>
+        <p className="text-xs tracking-widest uppercase text-zinc-500 mb-6">Links</p>
+        <ul className="space-y-1 text-2xl uppercase">
+          <li>Linkedin <span className="text-zinc-400">/</span></li>
+          <li>Github <span className="text-zinc-400">/</span></li>
+          <li>Otros</li>
+        </ul>
       </div>
-    </footer>
+
+      <div>
+        <p className="text-xs tracking-widest uppercase text-zinc-500 mb-6">Languages</p>
+        <ul className="space-y-1 text-2xl uppercase">
+          <li>Metodos de pagos <span className="text-zinc-400">/</span></li>
+          <li>Proveedor <span className="text-zinc-400">/</span></li>
+          <li>Contactenos</li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Columna centro */}
+    <div className="flex flex-col items-center justify-center">
+      <p className="uppercase tracking-wide text-sm mb-16">Copyright 2025-2026</p>
+      <img src={logoNoTextIcon} alt="Logo" className="w-52 opacity-95" />
+    </div>
+  </div>
+
+  <div className="h-14 border-t border-zinc-300">
+    <div className="max-w-6xl mx-auto h-full px-10 flex items-center justify-between text-sm text-zinc-500">
+      <span>© 2024 — copyright</span>
+      <span>privacy</span>
+    </div>
+  </div>
+</footer>
+
     )
 }
 
