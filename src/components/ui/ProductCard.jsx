@@ -1,12 +1,20 @@
-export default function ProductCard({imageUrl}) {
-    return(
-        <div className="bg-gray-100 p-6 rounded">
-            <img src={imageUrl} alt="Producto" className="w-full  object-cover"/>
-            <div className="border flex justify-center mt-2 ">
-                <button className="w-6 h-6 flex items-center justify-center hover:bg-black hover:text-white transition hover:scale-110 transition">
-                    +
-                </button>
-            </div>
-        </div>
-    )
+export default function ProductCard({ imageUrl, name, price }) {
+  return (
+    <div>
+      <div className="relative border bg-gray-100 p-6">
+        <img src={imageUrl} alt={name} className="w-full object-cover" />
+        <button
+          type="button"
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 h-8 w-8 border bg-white flex items-center justify-center"
+        >
+          +
+        </button>
+      </div>
+
+      <div className="mt-4 flex w-full justify-between">
+        <p>{name}</p>
+        <p>${price}</p>
+      </div>
+    </div>
+  );
 }
