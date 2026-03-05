@@ -18,8 +18,33 @@ const [query,setQuery]=useState("");
 const [minPrice,setMinPrice]=useState("");
 const [maxPrice,setMaxPrice]=useState("");
 
-const [cartItems,setCartItems]=useState([]);
 
+// persistencia de datos en local storage
+const CART_KEY="catalog_cart_v1"
+
+//const [cartItems,setCartItems]=useState([]);
+
+const [cartItems,setCartItems]=useState(() => {
+  try {
+    const raw = localStorage.getItem(CART_KEY);
+    if (!raw) return [];
+    
+    const data = JSON.parse(raw);
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+  // leer localStorage, parsear JSON, devolver [] si falla
+});
+
+useEffect(() => {
+  // serializar cartItems y guardar en localStorage
+  if (cartItems.length===0) {
+    localStorage.removeItem(CART_KEY);
+    return;
+  }
+  localStorage.setItem(CART_KEY,JSON.stringify(cartItems))
+}, [cartItems]);
 
 const PAGE_SIZE = 8;
 const [page, setPage] = useState(1);
@@ -167,3 +192,6 @@ const totalToPay=cartItems.reduce((acc,item) =>
 }
 
 export default App
+
+
+
