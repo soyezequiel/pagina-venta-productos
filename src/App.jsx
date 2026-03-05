@@ -68,24 +68,23 @@ const [error, setError] = useState(null);
 //Gestiona el carrito
 function handleAddToCart(product){
   
-  // me fijo si el producto ya esta en el carrito
-  const existingIndex = cartItems.findIndex((item) => item.id === product.id);
-  
-  //si ya esta, aumento la cantidad en 1
-  if (existingIndex !== -1) {
-    const idFind= cartItems[existingIndex]?.id;
-    setCartItems(prev => prev.map(item => item.id === idFind ? {...item, cantidad: item.cantidad+1} : item))
-  } else {
-    const compra = {id: product.id, name: product.name, price: product.price, cantidad: 1};
-    setCartItems((prev) => [...prev, compra]);
-  }
-  //si no esta lo agrego con cantidad 1
-  
   
   
 
-  
+  setCartItems(prev => {
+    // me fijo si el producto ya esta en el carrito
+    const existingIndex = prev.findIndex((item) => item.id === product.id);    
+    if (existingIndex === -1){
+      return [...prev, {id: product.id, name: product.name, price: product.price, cantidad: 1 }]
+    } 
+    //si ya esta, aumento la cantidad en 1
+    return prev.map((item) => 
+    item.id === product.id 
+    ? {...item, cantidad: item.cantidad+1} 
+    : item)
+  })
 }
+
 const didInitRef = useRef(false);
 useEffect(() => {
   if (didInitRef.current) return;
@@ -123,6 +122,11 @@ function filterProducts(product){
   return matchesQuery && matchesMinPrice && matchesMaxPrice;
 }
 const filteredProducts = products.filter(filterProducts);
+const cartCounter=cartItems.reduce((acc,item) => 
+  acc + Number(item.cantidad || 0),
+0
+)
+
 
   return (
 
@@ -135,7 +139,7 @@ const filteredProducts = products.filter(filterProducts);
         onMinPriceChange={setMinPrice}
         maxPrice={maxPrice}
         onMaxPriceChange={setMaxPrice}
-        cartCount={cartItems.length}
+        cartCount={cartCounter}
         onOpenCart={()=> setIsCartOpen(true)}
       />
       

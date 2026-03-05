@@ -2,17 +2,17 @@ export default function Cart({ open, onClose, products = [] }) {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="cart-title">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
 
-      <aside className="absolute right-0 top-0 h-full w-full max-w-md bg-gray-800 text-white shadow-2xl">
-        <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
-          <h2 id="cart-title" className="text-lg font-semibold">
+      <aside className="absolute right-0 top-0 h-full w-full max-w-md border-l border-zinc-200 bg-white text-zinc-800 shadow-2xl">
+        <div className="flex items-center justify-between border-b border-zinc-200 bg-zinc-50/80 px-4 py-4">
+          <h2 id="cart-title" className="text-lg font-semibold text-zinc-900">
             Carrito
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md px-2 py-1 text-sm text-gray-200 hover:bg-white/10"
+            className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm text-zinc-700 transition hover:border-zinc-500 hover:text-zinc-900"
           >
             Cerrar
           </button>
@@ -20,16 +20,18 @@ export default function Cart({ open, onClose, products = [] }) {
 
         <div className="h-[calc(100%-64px)] overflow-y-auto px-4 py-4">
           {products.length === 0 ? (
-            <p className="text-sm text-gray-300">Tu carrito esta vacio.</p>
+            <p className="text-sm text-zinc-600">Tu carrito esta vacio.</p>
           ) : (
             <ul className="space-y-2">
-              {products.map((item, index) => (
+              {products.map((item) => (
                 <li
-                  key={`${item.id}-${index}`}
-                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm"
+                  key={item.id}
+                  className="rounded-lg border border-zinc-200 bg-zinc-100/80 px-3 py-2 text-sm text-zinc-800"
                 >
                   Producto ID: {item.id } - {item.name} - ${item.price} - Cantidad: {item.cantidad}
                 </li>
+
+                
               ))}
             </ul>
           )}
