@@ -10,13 +10,6 @@ const endPoint = "/products"
 const endPointFallback2 = "/shop/products/all"
 
 
-// async function hasMoreProducts(endpoint, signal){
-    
-// }
-
-
-
-
 
 
 async function fetchProductFrom(base, endpoint, mapper,signal){

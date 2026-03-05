@@ -10,6 +10,7 @@ import { getProductsPage } from './services/productsApi' //getProducts,
 import './App.css'
 import { useRef } from 'react'
 import { useCallback } from 'react'
+import Cart from './components/ui/cart'
 
 
 function App() {
@@ -29,6 +30,8 @@ const [finished, setFinished] = useState(false);
 const sentinelRef = useRef(null);
 
 const seenIdsRef = useRef(new Set());
+
+const [isCartOpen, setIsCartOpen] = useState(false);
 
 const loadNexPage = useCallback(async () =>  {
   if (isFetching || finished) return;
@@ -64,7 +67,24 @@ const [error, setError] = useState(null);
 
 //Gestiona el carrito
 function handleAddToCart(product){
-  setCartItems((prev) => [...prev, product.id]);
+  
+  // me fijo si el producto ya esta en el carrito
+  const existingIndex = cartItems.findIndex((item) => item.id === product.id);
+  
+  //si ya esta, aumento la cantidad en 1
+  if (existingIndex !== -1) {
+    const idFind= cartItems[existingIndex]?.id;
+    setCartItems(prev => prev.map(item => item.id === idFind ? {...item, cantidad: item.cantidad+1} : item))
+  } else {
+    const compra = {id: product.id, name: product.name, price: product.price, cantidad: 1};
+    setCartItems((prev) => [...prev, compra]);
+  }
+  //si no esta lo agrego con cantidad 1
+  
+  
+  
+
+  
 }
 const didInitRef = useRef(false);
 useEffect(() => {
@@ -105,7 +125,9 @@ function filterProducts(product){
 const filteredProducts = products.filter(filterProducts);
 
   return (
+
     <div className='min-h-screen flex flex-col bg-[#f4f4f4]'>
+      {isCartOpen && <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} products={cartItems} />}
       <Header 
         query={query}
         onQueryChange={setQuery}
@@ -114,7 +136,9 @@ const filteredProducts = products.filter(filterProducts);
         maxPrice={maxPrice}
         onMaxPriceChange={setMaxPrice}
         cartCount={cartItems.length}
+        onOpenCart={()=> setIsCartOpen(true)}
       />
+      
       <main className='flex-1 max-w-6xl mx-auto w-full px-4 py-10'>
         {/* <HeroSection/> */}
         {(isFetching) ? <p>Cargando...</p> : null }
