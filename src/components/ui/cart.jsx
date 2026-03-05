@@ -1,4 +1,4 @@
-export default function Cart({ open, onClose, products = [] }) {
+export default function Cart({ open, onClose, products = [] , totalToPay}) {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="cart-title">
@@ -30,9 +30,8 @@ export default function Cart({ open, onClose, products = [] }) {
                 >
                   Producto ID: {item.id } - {item.name} - ${item.price} - Cantidad: {item.cantidad}
                 </li>
-
-                
               ))}
+              {totalToPay}
             </ul>
           )}
         </div>

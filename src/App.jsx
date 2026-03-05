@@ -127,11 +127,15 @@ const cartCounter=cartItems.reduce((acc,item) =>
 0
 )
 
+const totalToPay=cartItems.reduce((acc,item) => 
+  acc + Number(item.cantidad || 0)*item.price,
+0
+)
 
   return (
 
     <div className='min-h-screen flex flex-col bg-[#f4f4f4]'>
-      {isCartOpen && <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} products={cartItems} />}
+      {isCartOpen && <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} products={cartItems} totalToPay={totalToPay}/>}
       <Header 
         query={query}
         onQueryChange={setQuery}
