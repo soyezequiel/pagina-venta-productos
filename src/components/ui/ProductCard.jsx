@@ -10,15 +10,12 @@ export default function ProductCard({ product, onAddToCart }) {
       {open && <ProductDetail product={product} onClose={() => setOpen(false)} />}
 
       <div className="relative  bg-gray-100 p-6">
-       {/* <div className="absolute top-2 left-2 h-8 w-8 flex items-center justify-center"> */}
-            <button 
-            onClick={() => setOpen(true)}
-            className="absolute top-2 left-2 z-10 h-8 w-8 p-0 bg-white rounded-full flex items-center justify-center">
-              <img src={eyeIcon} alt="Ver producto" className="absolute h-6 w-6 block " />
-            </button>
-    
-       {/* </div> */}
-        <img src={product.imageUrl} alt={product.name} className="w-full object-cover" />
+        <button 
+        onClick={() => setOpen(true)}
+        className="absolute top-2 left-2 z-10 h-8 w-8 p-0 bg-white rounded-full flex items-center justify-center">
+          <img src={eyeIcon}  alt="Ver producto" className="absolute h-6 w-6 block " />
+        </button>
+        <img src={product.imageUrl} onError={ (e) => {e.currentTarget.src = "https://placehold.co/600x400?text=Sin+imagen"}} alt={product.name} className="w-full object-cover" />
         <button
           type="button"
           className="absolute bottom-2 left-1/2 -translate-x-1/2 h-8 w-8  bg-white flex items-center justify-center"
