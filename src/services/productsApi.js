@@ -50,7 +50,7 @@ export async function getProductsPage(page="1",pageSize="8",signal){
     }
 }
 
-const BLOCKED_HOSTNAMES = ["alta.ge", "placeimg.com"];
+const BLOCKED_HOSTNAMES = ["alta.ge", "placeimg.com","placehold.co"];
 function isAllowedImageUrl(url){
     if(!url || typeof url !== "string") return false;
     try {
