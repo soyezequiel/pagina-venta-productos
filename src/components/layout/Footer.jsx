@@ -33,8 +33,6 @@ export default function Footer() {
 
   <div className="h-14 border-t border-zinc-300">
     <div className="max-w-6xl mx-auto h-full px-10 flex items-center justify-between text-sm text-zinc-500">
-      <span>© 2024 — copyright</span>
-      <span>privacy</span>
     </div>
   </div>
 </footer>
