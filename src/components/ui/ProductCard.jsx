@@ -1,10 +1,21 @@
 import eyeIcon from "../../assets/icons/eye.svg";
+import ProductDetail from "./productDetail";
+import { useState } from "react";
 export default function ProductCard({ product, onAddToCart }) {
+  const [open, setOpen] = useState(false);
   return (
+
     <div>
+
+      {open && <ProductDetail product={product} onClose={() => setOpen(false)} />}
+
       <div className="relative  bg-gray-100 p-6">
        {/* <div className="absolute top-2 left-2 h-8 w-8 flex items-center justify-center"> */}
-            <button className="absolute top-2 left-2 z-10 h-8 w-8 p-0 bg-white rounded-full flex items-center justify-center"><img src={eyeIcon} alt="Ver producto" className="absolute h-6 w-6 block " /></button>
+            <button 
+            onClick={() => setOpen(true)}
+            className="absolute top-2 left-2 z-10 h-8 w-8 p-0 bg-white rounded-full flex items-center justify-center">
+              <img src={eyeIcon} alt="Ver producto" className="absolute h-6 w-6 block " />
+            </button>
     
        {/* </div> */}
         <img src={product.imageUrl} alt={product.name} className="w-full object-cover" />

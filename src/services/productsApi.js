@@ -9,7 +9,8 @@ export async function getProducts(signal){
         id:p.id,
         name:p.title,
         price:p.price,
-        imageUrl:p.image
+        imageUrl:p.images[1],
+        description:p.description
     }))
 }
 

@@ -13,6 +13,7 @@ export default function ProductGridSection({products, onAddToCart}) {
                             name={item.name} 
                             product={item} 
                             onAddToCart={() => onAddToCart(item)} 
+                            
                         />
                     )))
                 }
