@@ -1,5 +1,5 @@
 import ProductCard from "../ui/ProductCard";
-export default function ProductGridSection({products, onAddToCart}) {
+export default function ProductGridSection({products, onAddToCart, sentinelRef, isFetching, finished}) {
   return(
         <section>
             <h2 className="text-3xl font-bold tracking-wide mb-10 flex justify-start">Productos</h2>
@@ -18,6 +18,9 @@ export default function ProductGridSection({products, onAddToCart}) {
                     )))
                 }
             </div>
+            <div ref={sentinelRef} className="h-8" />
+            {isFetching && <p>Cargando más...</p>}
+            {finished && <p>No hay más productos</p>}
             
         </section>
         )

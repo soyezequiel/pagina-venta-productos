@@ -7,7 +7,17 @@ const mapperFallback2 = (p) => ({ id:p._id, name:p.title, price:p.price.current,
 
 //const endPointFallback = "/products"
 const endPoint = "/products"
-const endPointFallback2 = "/shop/products/all?page_index=1&page_size=30"
+const endPointFallback2 = "/shop/products/all"
+
+
+// async function hasMoreProducts(endpoint, signal){
+    
+// }
+
+
+
+
+
 
 async function fetchProductFrom(base, endpoint, mapper,signal){
     const res = await fetch(`${base}${endpoint}`,{signal});
@@ -18,12 +28,25 @@ async function fetchProductFrom(base, endpoint, mapper,signal){
     return list.map((p) => mapper(p))
 }
 
-export async function getProducts(signal){
+// export async function getProducts(page="1",pageSize="8",signal){
+//     const endpointMod = `${endPoint}?offset=${(page-1)*pageSize}&limit=${pageSize}`;
+//     try {
+//         return await fetchProductFrom(PRIMARY,endpointMod,mapperPrimary,signal);
+//     } catch (error) {
+//         const endPointFallback2Mod =  `${endPointFallback2}?page_index=${page}&page_size=${pageSize}`;
+//         console.warn("Primary API failed, usando fallback", error.message);
+//         return await fetchProductFrom(FALLBACK2, endPointFallback2Mod, mapperFallback2,signal);
+//     }
+// }
+
+export async function getProductsPage(page="1",pageSize="8",signal){
+    const endpointMod = `${endPoint}?offset=${(page-1)*pageSize}&limit=${pageSize}`;
     try {
-        return await fetchProductFrom(PRIMARY,endPoint,mapperPrimary,signal);
+        return await fetchProductFrom(PRIMARY,endpointMod,mapperPrimary,signal);
     } catch (error) {
+        const endPointFallback2Mod =  `${endPointFallback2}?page_index=${page}&page_size=${pageSize}`;
         console.warn("Primary API failed, usando fallback", error.message);
-        return await fetchProductFrom(FALLBACK2, endPointFallback2, mapperFallback2,signal);
+        return await fetchProductFrom(FALLBACK2, endPointFallback2Mod, mapperFallback2,signal);
     }
 }
 
