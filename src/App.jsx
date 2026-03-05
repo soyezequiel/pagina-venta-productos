@@ -140,6 +140,17 @@ useEffect(() => {
   },[loadNexPage])
 
 
+function handleRemoveOneFromCart(productId){
+  setCartItems(prev =>
+    prev.flatMap(item => {
+      if (item.id !== productId) return [item];
+      if (item.cantidad > 1) return [{ ...item, cantidad: item.cantidad -1 }];
+      return []; //si es 1 lo elimina del array
+    })
+  )
+}
+
+
 function filterProducts(product){
   const matchesQuery = product.name.toLowerCase().includes(query.toLowerCase());
   const matchesMinPrice = minPrice === '' || product.price >= Number(minPrice);
@@ -160,7 +171,7 @@ const totalToPay=cartItems.reduce((acc,item) =>
   return (
 
     <div className='min-h-screen flex flex-col bg-[#f4f4f4]'>
-      {isCartOpen && <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} products={cartItems} totalToPay={totalToPay}/>}
+      {isCartOpen && <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} products={cartItems} totalToPay={totalToPay} onRemoveOne={handleRemoveOneFromCart} />}
       <Header 
         query={query}
         onQueryChange={setQuery}

@@ -1,4 +1,4 @@
-export default function Cart({ open, onClose, products = [] , totalToPay}) {
+export default function Cart({ open, onClose, products = [] , totalToPay, onRemoveOne }) {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="cart-title">
@@ -28,7 +28,11 @@ export default function Cart({ open, onClose, products = [] , totalToPay}) {
                   key={item.id}
                   className="rounded-lg border border-zinc-200 bg-zinc-100/80 px-3 py-2 text-sm text-zinc-800"
                 >
+                
                   Producto ID: {item.id } - {item.name} - ${item.price} - Cantidad: {item.cantidad}
+                  <button onClick={() => onRemoveOne(item.id)}>
+                    Quitar 1
+                  </button>
                 </li>
               ))}
               {totalToPay}
