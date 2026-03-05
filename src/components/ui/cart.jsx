@@ -30,7 +30,9 @@ export default function Cart({ open, onClose, products = [] , totalToPay, onRemo
                 >
                 
                   Producto ID: {item.id } - {item.name} - ${item.price} - Cantidad: {item.cantidad}
-                  <button onClick={() => onRemoveOne(item.id)}>
+                  <button 
+                  className="ml-2 rounded border border-zinc-300 px-2 py-1 text-xs hover:bg-zinc-200"
+                  onClick={() => onRemoveOne(item.id)}>
                     Quitar 1
                   </button>
                 </li>
