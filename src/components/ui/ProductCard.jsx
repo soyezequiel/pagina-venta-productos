@@ -22,7 +22,7 @@ export default function ProductCard({ product, onAddToCart }) {
               e.currentTarget.src = 'https://placehold.co/600x400?text=Sin+imagen'
             }}
             alt={product.name}
-            className='w-full object-cover'
+            className='w-full object-cover round-full'
           />
 
           <button

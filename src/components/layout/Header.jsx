@@ -13,9 +13,9 @@ export default function Header({
 }) {
   return (
     <div className='pt-6'>
-      <div className='grid grid-cols-3 items-center rounded-3xl border border-zinc-200 bg-white/80 px-5 py-4 shadow-sm backdrop-blur'>
-        <div className='flex items-center gap-4'>
-          <div className='flex h-11 w-[320px] items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-100/80 px-4 shadow-inner focus-within:border-zinc-400'>
+      <div className='grid grid-cols-1 gap-4 md:grid-cols-3 items-center rounded-3xl border border-zinc-200 bg-white/80 px-5 py-4 shadow-sm backdrop-blur'>
+        <div className='flex items-center gap-4 w-full justify-center md:justify-start'>
+          <div className='flex h-11 w-full max-w-[320px] items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-100/80 px-4 shadow-inner focus-within:border-zinc-400'>
             <span className='text-zinc-500'>&#128269;</span>
             <input
               type='text'
@@ -31,7 +31,7 @@ export default function Header({
           <img src={logoIcon} alt='Logo' className='h-7 w-auto object-contain opacity-90' />
         </div>
 
-        <div className='justify-self-end flex items-center -space-x-3'>
+        <div className='justify-self-center md:justify-self-end flex items-center -space-x-3'>
           <div className='flex h-10 w-20 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-lg font-semibold text-zinc-100 shadow'>
             {cartCount}
           </div>
@@ -48,10 +48,10 @@ export default function Header({
 
       <div className='mt-10 space-y-3 rounded-2xl bg-white/70 px-4 py-5 shadow-sm'>
         <p className='text-xl font-semibold tracking-tight text-zinc-800'>Filters(+)</p>
-        <div className='flex items-center gap-4'>
+        <div className='flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center'>
           <span className='text-xl font-light text-zinc-600'>precio</span>
 
-          <div className='rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500'>
+          <div className='w-full rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500 sm:w-28'>
             <input
               type='number'
               value={minPrice}
@@ -61,7 +61,7 @@ export default function Header({
             />
           </div>
 
-          <div className='rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500'>
+          <div className='w-full rounded-full border border-zinc-300 bg-white px-4 py-1 text-xs font-medium tracking-[0.2em] text-zinc-700 transition hover:border-zinc-500 sm:w-28'>
             <input
               type='number'
               value={maxPrice}
