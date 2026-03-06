@@ -6,7 +6,7 @@ export default function ProductCard({ product, onAddToCart }) {
 
   return (
     <div>
-      {open && <ProductDetail product={product} onClose={() => setOpen(false)} />}
+      {open && <ProductDetail product={product} onClose={() => setOpen(false)} onAddToCart={() => onAddToCart(product)} />}
       <div className="transition-transform  duration-200  ease-out  hover:scale-105">
         <div className='relative bg-gray-100 p-6'>
           <img
@@ -18,13 +18,12 @@ export default function ProductCard({ product, onAddToCart }) {
             alt={product.name}
             className='w-full object-cover rounded-3xl'
           />
-
           <button
             type='button'
-            className='absolute bottom-2 left-1/2 -translate-x-1/2 h-10 w-10 bg-white flex items-center justify-center rounded-2xl'
+            className='absolute bottom-2 left-1/2 -translate-x-1/2 h-10 w-10 bg-white flex items-center justify-center rounded-2xl transition-all duration-150 active:scale-95'
             onClick={onAddToCart}
           >
-            <img src={cart} className='p-2'></img>
+            <img src={cart} className='p-2 transition-transform  duration-200  ease-out  hover:scale-115'></img>
           </button>
         </div>
         <div className='mt-4 flex w-full justify-between'>
