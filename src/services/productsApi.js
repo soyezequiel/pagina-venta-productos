@@ -4,13 +4,8 @@ const FALLBACK2 = import.meta.env.VITE_API_URL_FALLBACK2
 const mapperPrimary = (p) => ({ id: p.id, name: p.title, price: p.price, imageUrl: pickImage(p), description: p.description });
 //const mapperFallback = (p) => ({ id:p.id, name:p.title, price:p.price, imageUrl:p.image, description:p.description  });
 const mapperFallback2 = (p) => ({ id: p._id, name: p.title, price: p.price.current, imageUrl: pickImage(p), description: p.description });
-
-//const endPointFallback = "/products"
 const endPoint = "/products"
 const endPointFallback2 = "/shop/products/all"
-
-
-
 
 async function fetchProductFrom(base, endpoint, mapper, signal) {
     const res = await fetch(`${base}${endpoint}`, { signal });
