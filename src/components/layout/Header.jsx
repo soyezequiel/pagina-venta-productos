@@ -1,9 +1,9 @@
 import logoIcon from '../../assets/icons/logo.png'
 import carritoIcon from '../../assets/icons/carrito.png'
 
-        
 
-export default function Header({query,onQueryChange,minPrice,onMinPriceChange,maxPrice,onMaxPriceChange,cartCount,onOpenCart}) {
+
+export default function Header({ query, onQueryChange, minPrice, onMinPriceChange, maxPrice, onMaxPriceChange, cartCount, onOpenCart }) {
   return (
     <div className="pt-6">
       <div className="grid grid-cols-3 items-center rounded-3xl border border-zinc-200 bg-white/80 px-5 py-4 shadow-sm backdrop-blur">
@@ -36,9 +36,9 @@ export default function Header({query,onQueryChange,minPrice,onMinPriceChange,ma
             className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-zinc-900 bg-white p-0 shadow-md transition hover:scale-105"
           >
             <img src={carritoIcon} alt="Carrito" className="h-7 w-7 object-contain" />
-            
+
           </button>
-          
+
         </div>
       </div>
 
