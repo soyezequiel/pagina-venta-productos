@@ -29,7 +29,6 @@ export default function Header({query,onQueryChange,minPrice,onMinPriceChange,ma
           <div className="flex h-10 w-20 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-lg font-semibold text-zinc-100 shadow">
             {cartCount}
           </div>
-          
           <button
             type="button"
             onClick={onOpenCart}
