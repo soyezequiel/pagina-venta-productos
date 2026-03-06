@@ -9,6 +9,7 @@ import { getProductsPage } from './services/productsApi'
 function App() {
   const CART_KEY = 'catalog_cart_v1'
   const PAGE_SIZE = 8
+  const AUTOLOAD_COOLDOWN_MS = 1800
 
   const [query, setQuery] = useState('')
   const [minPrice, setMinPrice] = useState('')
@@ -31,6 +32,7 @@ function App() {
   const [page, setPage] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
   const [finished, setFinished] = useState(false)
+  const [isAutoLoadCooldown, setIsAutoLoadCooldown] = useState(false)
 
   const sentinelRef = useRef(null)
   const seenIdsRef = useRef(new Set())
@@ -38,6 +40,8 @@ function App() {
   const requestIdRef = useRef(0)
   const isFetchingRef = useRef(false)
   const finishedRef = useRef(false)
+  const autoLoadTimeoutRef = useRef(null)
+  const sentinelVisibleRef = useRef(false)
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -54,6 +58,14 @@ function App() {
   useEffect(() => {
     finishedRef.current = finished
   }, [finished])
+
+  const cancelAutoLoadCooldown = useCallback(() => {
+    if (autoLoadTimeoutRef.current) {
+      clearTimeout(autoLoadTimeoutRef.current)
+      autoLoadTimeoutRef.current = null
+    }
+    setIsAutoLoadCooldown(false)
+  }, [])
 
   const loadPage = useCallback(async (pageToLoad, replace = false) => {
     if (!replace && (isFetchingRef.current || finishedRef.current)) return
@@ -115,10 +127,37 @@ function App() {
     await loadPage(page, false)
   }, [loadPage, page])
 
+  const scheduleNextPageLoad = useCallback(() => {
+    if (autoLoadTimeoutRef.current || isFetchingRef.current || finishedRef.current) return
+
+    setIsAutoLoadCooldown(true)
+    autoLoadTimeoutRef.current = setTimeout(() => {
+      autoLoadTimeoutRef.current = null
+      setIsAutoLoadCooldown(false)
+
+      if (!sentinelVisibleRef.current || isFetchingRef.current || finishedRef.current || observerLockRef.current) {
+        return
+      }
+
+      observerLockRef.current = true
+
+      loadNexPage()
+        .catch((err) => {
+          setError(err.message || 'No se pudieron cargar productos')
+          console.error('Error al cargar la siguiente pagina:', err)
+        })
+        .finally(() => {
+          observerLockRef.current = false
+        })
+    }, AUTOLOAD_COOLDOWN_MS)
+  }, [AUTOLOAD_COOLDOWN_MS, loadNexPage])
+
   useEffect(() => {
     let cancelled = false
 
     const run = async () => {
+      cancelAutoLoadCooldown()
+      sentinelVisibleRef.current = false
       observerLockRef.current = true
       seenIdsRef.current = new Set()
       setProducts([])
@@ -137,9 +176,19 @@ function App() {
 
     return () => {
       cancelled = true
+      cancelAutoLoadCooldown()
+      sentinelVisibleRef.current = false
       observerLockRef.current = false
     }
-  }, [query, minPrice, maxPrice, loadPage])
+  }, [query, minPrice, maxPrice, cancelAutoLoadCooldown, loadPage])
+
+  useEffect(() => {
+    return () => {
+      if (autoLoadTimeoutRef.current) {
+        clearTimeout(autoLoadTimeoutRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const node = sentinelRef.current
@@ -148,26 +197,27 @@ function App() {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
-        if (!entry.isIntersecting) return
-        if (isFetching || finished || observerLockRef.current) return
+        sentinelVisibleRef.current = entry.isIntersecting
 
-        observerLockRef.current = true
+        if (!entry.isIntersecting) {
+          cancelAutoLoadCooldown()
+          return
+        }
 
-        loadNexPage()
-          .catch((err) => {
-            setError(err.message || 'No se pudieron cargar productos')
-            console.error('Error al cargar la siguiente página:', err)
-          })
-          .finally(() => {
-            observerLockRef.current = false
-          })
+        if (isFetchingRef.current || finishedRef.current || observerLockRef.current) return
+
+        scheduleNextPageLoad()
       },
-      { root: null, rootMargin: '300px', threshold: 0 }
+      { root: null, rootMargin: '0px', threshold: 0 }
     )
 
     observer.observe(node)
-    return () => observer.disconnect()
-  }, [loadNexPage, isFetching, finished])
+    return () => {
+      observer.disconnect()
+      cancelAutoLoadCooldown()
+      sentinelVisibleRef.current = false
+    }
+  }, [cancelAutoLoadCooldown, scheduleNextPageLoad])
 
   function handleAddToCart(product) {
     setCartItems((prev) => {
@@ -234,6 +284,7 @@ function App() {
           onAddToCart={handleAddToCart}
           sentinelRef={sentinelRef}
           isFetching={isFetching}
+          isAutoLoadCooldown={isAutoLoadCooldown}
           finished={finished}
         />
       </main>

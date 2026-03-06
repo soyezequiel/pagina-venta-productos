@@ -5,6 +5,7 @@ export default function ProductGridSection({
   onAddToCart,
   sentinelRef,
   isFetching,
+  isAutoLoadCooldown,
   finished
 }) {
   return (
@@ -27,6 +28,9 @@ export default function ProductGridSection({
       </div>
 
       <div ref={sentinelRef} className='h-8' />
+      {isAutoLoadCooldown && !isFetching && !finished && (
+        <p className='text-sm text-zinc-500'>Pausa breve antes de cargar mas productos...</p>
+      )}
       {isFetching && <p>Cargando mas...</p>}
       {finished && <p>No hay mas productos</p>}
     </section>
