@@ -46,3 +46,10 @@ Luego abre la URL que aparece en la terminal
 
 - El proyecto consume APIs externas, no necesita un backend local para funcionar
 - Si quieres usar un archivo especifico para desarrollo, Vite reconoce `.env.development` y no `.env.dev`
+
+
+---
+
+## Puedes probarlo en VERCEL
+
+https://pagina-venta-productos.vercel.app/
