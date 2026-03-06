@@ -112,6 +112,7 @@ function handleAddToCart(product){
 
 const didInitRef = useRef(false);
 useEffect(() => {
+  console.log("version 1.0.0");
   if (didInitRef.current) return;
   didInitRef.current=true;
   loadNexPage();
