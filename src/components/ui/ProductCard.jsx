@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import eyeIcon from '../../assets/icons/eye.svg'
 import ProductDetail from './productDetail'
-
+import cart from '../../assets/icons/Shopping-cart.png'
 export default function ProductCard({ product, onAddToCart }) {
   const [open, setOpen] = useState(false)
 
@@ -10,14 +9,9 @@ export default function ProductCard({ product, onAddToCart }) {
       {open && <ProductDetail product={product} onClose={() => setOpen(false)} />}
       <div className="transition-transform  duration-200  ease-out  hover:scale-105">
         <div className='relative bg-gray-100 p-6'>
-          <button
-            onClick={() => setOpen(true)}
-            className='absolute top-2 left-2 z-10 h-8 w-8 p-0 bg-white rounded-full flex items-center justify-center'
-          >
-            <img src={eyeIcon} alt='Ver producto' className='absolute h-6 w-6 block' />
-          </button>
           <img
             src={product.imageUrl}
+            onClick={() => setOpen(true)}
             onError={(e) => {
               e.currentTarget.src = 'https://placehold.co/600x400?text=Sin+imagen'
             }}
@@ -27,10 +21,10 @@ export default function ProductCard({ product, onAddToCart }) {
 
           <button
             type='button'
-            className='absolute bottom-2 left-1/2 -translate-x-1/2 h-8 w-8 bg-white flex items-center justify-center'
+            className='absolute bottom-2 left-1/2 -translate-x-1/2 h-10 w-10 bg-white flex items-center justify-center rounded-2xl'
             onClick={onAddToCart}
           >
-            +
+            <img src={cart} className='p-2'></img>
           </button>
         </div>
         <div className='mt-4 flex w-full justify-between'>
