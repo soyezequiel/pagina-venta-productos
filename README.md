@@ -31,17 +31,6 @@ Proyecto frontend desarrollado para una prueba tecnica para Pierce Commerce.
 
 Luego abre la URL que aparece en la terminal
 
-
----
-
-## Scripts disponibles
-
-- `npm run dev`
-- `npm run build`
-- `npm run preview`
-- `npm run lint`
-
-
 ---
 
 ## Puedes probarlo en VERCEL
