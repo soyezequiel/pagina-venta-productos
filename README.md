@@ -25,6 +25,8 @@ Proyecto frontend desarrollado para una prueba tecnica para Pierce Commerce.
 
 ## Ejecutar en desarrollo
 
+- renombra  `.env.example` a `.env.dev`
+
 - `npm run dev`
 
 Luego abre la URL que aparece en la terminal
@@ -38,14 +40,6 @@ Luego abre la URL que aparece en la terminal
 - `npm run build`
 - `npm run preview`
 - `npm run lint`
-
-
----
-
-## Notas
-
-- El proyecto consume APIs externas, no necesita un backend local para funcionar
-- Si quieres usar un archivo especifico para desarrollo, Vite reconoce `.env.development` y no `.env.dev`
 
 
 ---
