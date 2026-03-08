@@ -25,7 +25,7 @@ Proyecto frontend desarrollado para una prueba tecnica para Pierce Commerce.
 
 ## Ejecutar en desarrollo
 
-- renombra  `.env.example` a `.env.dev`
+- renombra  `.env.example` a `.env`
 
 - `npm run dev`
 
